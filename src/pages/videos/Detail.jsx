@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { fetchVideoById } from '../../api/fetchVideos';
+import { deleteVideo, fetchVideoById } from '../../api/fetchVideos';
 
 function Detail() {
   const { id } = useParams();
@@ -8,6 +8,14 @@ function Detail() {
   const { data, isError, isLoading } = useQuery({
     queryKey: ['video', id],
     queryFn: () => fetchVideoById(id),
+  });
+  const deleteVideoMutation = useMutation({
+    mutationFn: deleteVideo,
+    onSuccess: () => {
+      alert('Video eliminado');
+      navigate('/videos');
+    },
+    onError: () => alert('Error al eliminar el video'),
   });
 
   if (isError) {
@@ -18,6 +26,12 @@ function Detail() {
     return <p>CARGANDO...</p>;
   }
 
+  const handleDeleteVideo = async () => {
+    const respuesta = confirm('¿Deseas eliminar el video?');
+    if (!respuesta) return;
+
+    await deleteVideoMutation.mutateAsync(data._id);
+  };
   return (
     <main className='max-w-[950px] m-auto p-4'>
       <Link
@@ -28,9 +42,9 @@ function Detail() {
       </Link>
       <section className='mb-5'>
         <video
-          src='http://localhost:3000/api/videos/content/6686d98d080c47ad220bcf1b'
+          src={`http://localhost:3000/api/videos/content/${data._id}`}
           controls
-          className='w-[80%] m-auto rounded-md'
+          className='w-[80%] h-[400px] m-auto rounded-md object-cover'
         ></video>
       </section>
       <section className='mb-5'>
@@ -43,7 +57,10 @@ function Detail() {
         <button className='px-3 py-2 rounded-md text-white bg-blue-400'>
           Editar
         </button>
-        <button className='px-3 py-2 rounded-md text-white bg-red-400'>
+        <button
+          className='px-3 py-2 rounded-md text-white bg-red-400'
+          onClick={handleDeleteVideo}
+        >
           Eliminar
         </button>
       </section>

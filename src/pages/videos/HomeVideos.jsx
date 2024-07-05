@@ -20,7 +20,7 @@ function HomeVideos() {
           Nuevo video
         </Link>
       </div>
-      <section className='flex justify-center items-center gap-6'>
+      <section className='flex justify-center items-center gap-6 flex-wrap'>
         {data &&
           data.map(video => (
             <Link key={video._id} to={`/videos/${video._id}`}>
