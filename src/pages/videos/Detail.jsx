@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteVideo, fetchVideoById } from '../../api/fetchVideos';
+import { API_VIDEOS_URL } from '../../config/config';
 
 function Detail() {
   const { id } = useParams();
@@ -42,7 +43,7 @@ function Detail() {
       </Link>
       <section className='mb-5'>
         <video
-          src={`http://localhost:3000/api/videos/content/${data._id}`}
+          src={`${API_VIDEOS_URL}/${data._id}`}
           controls
           className='w-[80%] h-[400px] m-auto rounded-md object-cover'
         ></video>

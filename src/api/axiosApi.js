@@ -1,8 +1,8 @@
 import axios from "axios";
+import { API_VIDEOS_URL } from "../config/config";
 
-// baseURL: "http://localhost:3000"
 const axiosAPI = axios.create({
-    baseURL: "https://plataforma-back-ng70.onrender.com/"
+    baseURL: API_VIDEOS_URL
 })
 
 export default axiosAPI
