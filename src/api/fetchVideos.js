@@ -16,7 +16,11 @@ export const postVideo = async (data) => {
 }
 
 export const deleteVideo = async (id) => {
-  console.log(id);
   const res = await axiosAPI.delete(`/api/videos/${id}`)
+  return res.data
+}
+
+export const updateVideo = async({id, data}) => {
+  const res = await axiosAPI.put(`/api/videos/${id}`, data)
   return res.data
 }

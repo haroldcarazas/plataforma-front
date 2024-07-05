@@ -54,7 +54,10 @@ function Detail() {
         </p>
       </section>
       <section className='flex justify-end items-center gap-4'>
-        <button className='px-3 py-2 rounded-md text-white bg-blue-400'>
+        <button
+          className='px-3 py-2 rounded-md text-white bg-blue-400'
+          onClick={() => navigate(`/videos/edit/${data._id}`)}
+        >
           Editar
         </button>
         <button

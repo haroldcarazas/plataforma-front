@@ -4,6 +4,7 @@ import { useReactMediaRecorder } from 'react-media-recorder';
 import { postVideo } from '../../api/fetchVideos';
 import { fetchUsuarios } from '../../api/fetchUsuarios';
 import { useNavigate } from 'react-router-dom';
+import VideoRecorder from '../../components/VideoRecorder';
 
 function Create() {
   const {
@@ -73,69 +74,15 @@ function Create() {
               ))}
           </select>
         </div>
-        {status === 'stopped' && (
-          <video
-            src={mediaBlobUrl}
-            className='h-[300px] w-full object-cover'
-            controls
-            autoPlay
-          ></video>
-        )}
-        {(status === 'recording' || status === 'paused') && (
-          <video
-            ref={videoRef}
-            className='h-[300px] w-full object-cover'
-            controls
-            autoPlay
-          ></video>
-        )}
-        <div className='flex justify-center items-center gap-3'>
-          {status === 'idle' && (
-            <button
-              type='button'
-              className='bg-blue-400 rounded-md text-white px-2 py-1 w-full'
-              onClick={startRecording}
-            >
-              Iniciar grabación
-            </button>
-          )}
-          {status === 'stopped' && (
-            <button
-              type='button'
-              className='bg-blue-400 rounded-md text-white px-2 py-1'
-              onClick={startRecording}
-            >
-              Volver a grabar
-            </button>
-          )}
-          {status === 'paused' && (
-            <button
-              type='button'
-              className='bg-blue-400 rounded-md text-white px-2 py-1'
-              onClick={resumeRecording}
-            >
-              Reaundar
-            </button>
-          )}
-          {(status === 'recording' || status === 'paused') && (
-            <>
-              <button
-                type='button'
-                className='bg-orange-400 rounded-md text-white px-2 py-1'
-                onClick={pauseRecording}
-              >
-                Pausar
-              </button>
-              <button
-                type='button'
-                className='bg-red-400 rounded-md text-white px-2 py-1'
-                onClick={stopRecording}
-              >
-                Detener
-              </button>
-            </>
-          )}
-        </div>
+        <VideoRecorder
+          status={status}
+          startRecording={startRecording}
+          resumeRecording={resumeRecording}
+          pauseRecording={pauseRecording}
+          stopRecording={stopRecording}
+          videoRef={videoRef}
+          mediaBlobUrl={mediaBlobUrl}
+        />
         <div className='flex justify-center items-center gap-4'>
           <button
             className='px-2 py-1 text-white bg-green-400 rounded-md'
@@ -145,7 +92,7 @@ function Create() {
           </button>
           <button
             className='px-2 py-1 text-white bg-red-400 rounded-md'
-            type='reset'
+            onClick={() => navigate('/videos')}
           >
             Cancelar
           </button>
