@@ -43,7 +43,7 @@ function Detail() {
       </Link>
       <section className='mb-5'>
         <video
-          src={`${API_VIDEOS_URL}/${data._id}`}
+          src={`${API_VIDEOS_URL}/api/videos/content/${data._id}`}
           controls
           className='w-[80%] h-[400px] m-auto rounded-md object-cover'
         ></video>
