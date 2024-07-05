@@ -21,7 +21,7 @@ function HomeVideos() {
         </Link>
       </div>
       <section className='flex justify-center items-center gap-6 flex-wrap'>
-        {data.length === 0 && <p>NO HAY VIDEOS DISPONIBLES</p>}
+        {data?.length === 0 && <p>NO HAY VIDEOS DISPONIBLES</p>}
         {data &&
           data.map(video => (
             <Link key={video._id} to={`/videos/${video._id}`}>
